@@ -27,6 +27,6 @@ jobs:
     - name: Build debug and preprod apks and run tests
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: --stacktrace -Dtrace :app:testDebugUnitTest :app:assembleDevDebug :app:assemblePreprodRelease
+        arguments: --stacktrace -Dtrace :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
       env:
         TERM: dumb
