@@ -5,6 +5,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Required for dorny/test-reporter
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
 jobs:
   build:
 
