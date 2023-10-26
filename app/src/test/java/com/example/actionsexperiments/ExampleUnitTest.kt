@@ -15,8 +15,11 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 
+    /*
     @Test
     fun addition_isIncorrect() {
         assertEquals(5, 2 + 2)
     }
+    
+     */
 }
