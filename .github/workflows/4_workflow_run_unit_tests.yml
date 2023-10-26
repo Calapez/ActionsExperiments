@@ -43,6 +43,6 @@ jobs:
       if: always() # run this step even if previous step failed
       with:
           name: JUnit Tests
-          path: app/build/test-results/testDebugUnitTest/TEST-*.xml# Path to test results
-          reporter: java-junit# Format of test results
+          path: app/build/test-results/testDebugUnitTest/TEST-*.xml # Path to test results
+          reporter: java-junit # Format of test results
           fail-on-error: false
