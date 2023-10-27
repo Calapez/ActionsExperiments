@@ -30,15 +30,15 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
-    - name: Build debug and preprod apks, run tests
+    - name: Build debug and preprod apks and run tests
       uses: gradle/gradle-build-action@v2
       with:
         arguments: --stacktrace -Dtrace :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
       env:
         TERM: dumb
-        
+
     - name: Upload build reports
-      if: always()
+      if: always() # run this step even if previous step failed
       uses: actions/upload-artifact@v2
       with:
         name: build-reports
@@ -46,9 +46,9 @@ jobs:
 
     - name: Test Reports
       uses: dorny/test-reporter@v1
-      if: always()
+      if: always() # run this step even if previous step failed
       with:
           name: JUnit Tests
           path: app/build/test-results/testDebugUnitTest/TEST-*.xml # Path to test results
-          reporter: 'dotnet-trx'  
+          reporter: java-junit # Format of test results
           fail-on-error: false
