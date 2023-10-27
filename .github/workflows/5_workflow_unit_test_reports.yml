@@ -1,0 +1,46 @@
+name: Workflow 5 - Unit Tests Reports
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Required for dorny/test-reporter
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+      
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+        distribution: 'temurin'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
+    - name: Build debug and preprod apks and run tests
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: --stacktrace -Dtrace :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
+      env:
+        TERM: dumb
+
+    - name: Test Reports
+      uses: dorny/test-reporter@v1
+      if: always() # run this step even if previous step failed
+      with:
+          name: JUnit Tests
+          path: app/build/test-results/testDebugUnitTest/TEST-*.xml # Path to test results
+          reporter: java-junit # Format of test results
+          fail-on-error: false
