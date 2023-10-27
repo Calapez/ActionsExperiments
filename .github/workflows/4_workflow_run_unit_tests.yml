@@ -45,7 +45,7 @@ jobs:
         path: app/build/reports
 
     - name: Test Reports
-      uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@v1.5.0
       if: always()
       with:
           name: JUnit Tests
