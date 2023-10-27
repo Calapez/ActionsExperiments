@@ -19,7 +19,8 @@ class MainActivity : ComponentActivity() {
 
         Log.d("MainActivity", BuildConfig.GUEST_EMAIL)
         Log.d("MainActivity", BuildConfig.GUEST_PW)
-        //login(BuildConfig.GUEST_EMAIL, BuildConfig.GUEST_PW, LoginMode.GUEST_MODE)
+        Log.d("MainActivity", BuildConfig.USERNAME)
+        Log.d("MainActivity", BuildConfig.AUTH_TOKEN)
 
         setContent {
             ActionsExperimentsTheme {
