@@ -30,10 +30,17 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
-    - name: Build debug and preprod apks and run tests
+    - name: Build debug and preprod apks
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: --stacktrace -Dtrace :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease
+        arguments: --stacktrace -Dtrace :app:assembleDebug :app:assembleRelease
+      env:
+        TERM: dumb
+
+    - name: Run tests
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: --stacktrace -Dtrace :app:testDebugUnitTest
       env:
         TERM: dumb
 
