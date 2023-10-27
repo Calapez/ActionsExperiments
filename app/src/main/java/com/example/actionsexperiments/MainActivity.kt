@@ -1,6 +1,7 @@
 package com.example.actionsexperiments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,11 @@ import com.example.actionsexperiments.ui.theme.ActionsExperimentsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("MainActivity", BuildConfig.GUEST_EMAIL)
+        Log.d("MainActivity", BuildConfig.GUEST_PW)
+        //login(BuildConfig.GUEST_EMAIL, BuildConfig.GUEST_PW, LoginMode.GUEST_MODE)
+
         setContent {
             ActionsExperimentsTheme {
                 // A surface container using the 'background' color from the theme
