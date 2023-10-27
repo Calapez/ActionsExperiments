@@ -20,6 +20,7 @@ class ExampleUnitTest {
         assertEquals(5, 5)
     }
 
+    // some comment
     @Test
     fun subtraction_isCorrect() {
         assertEquals(5, 10 - 5)
