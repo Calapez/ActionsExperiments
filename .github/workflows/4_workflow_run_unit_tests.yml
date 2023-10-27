@@ -38,7 +38,7 @@ jobs:
         TERM: dumb
         
     - name: Upload build reports
-      if: always() # run this step even if previous step failed
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: build-reports
@@ -46,9 +46,9 @@ jobs:
 
     - name: Test Reports
       uses: dorny/test-reporter@v1
-      if: always() # run this step even if previous step failed
+      if: always()
       with:
           name: JUnit Tests
           path: app/build/test-results/testDebugUnitTest/TEST-*.xml # Path to test results
-          reporter: java-junit # Format of test results
+          reporter: 'dotnet-trx'  
           fail-on-error: false
