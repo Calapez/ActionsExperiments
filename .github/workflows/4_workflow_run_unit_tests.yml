@@ -50,5 +50,4 @@ jobs:
       with:
           name: JUnit Tests
           path: app/build/test-results/testDebugUnitTest/TEST-*.xml # Path to test results
-          reporter: 'dotnet-trx'  
-          fail-on-error: false
+          reporter: java-junit 
