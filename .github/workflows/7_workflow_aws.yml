@@ -41,5 +41,5 @@ jobs:
     - name: Upload keystore
       uses: actions/upload-artifact@v3
       with:
-        path: ${{ steps.decode_keystore.outputs.filePath }}
+        path: myKeystore.jks # ${{ steps.decode_keystore.outputs.filePath }}
       
