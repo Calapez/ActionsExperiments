@@ -23,15 +23,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-central-1"
 
-    #- uses: chrislennon/action-aws-cli@v1.1
-    # All commands after this point have access to the AWS CLI
-    #- run: aws s3 ls
-      #env:
-        #AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
-        #AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
-
-    - name: Get aws version
-      if: always()
-      run: aws --version
-
+    - name: Decode Keystore
+      id: decode_keystore
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: 'keystore/your_signing_keystore.jks'
+        encodedString: ${{ secrets.KEYSTORE }}
+        
+    - name: Upload keystore
+      uses: actions/upload-artifact@v3
+      with:
+        name: keystore
+        path: keystore/your_signing_keystore.jks
       
