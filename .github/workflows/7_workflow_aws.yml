@@ -23,23 +23,26 @@ jobs:
           #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           #AWS_DEFAULT_REGION: "eu-central-1"
 
-    #- name: Decode Keystore
-      #id: decode_keystore
-      #uses: timheuer/base64-to-file@v1.2
-      #with:
-        #fileName: 'myKeystore.jks'
-        #encodedString: ${{ secrets.KEYSTORE }}
-
     - name: Decode Keystore
-      env:
-          ENCODED_STRING: ${{ secrets.KEYSTORE }}
-      run: |
-          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
-          mkdir "${TMP_KEYSTORE_FILE_PATH}"
-          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/myKeystore.jks
+      id: decode_keystore
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'myKeystore.jks'
+        encodedString: ${{ secrets.KEYSTORE }}
+
+    #- name: Decode Keystore
+      #env:
+          #ENCODED_STRING: ${{ secrets.KEYSTORE }}
+      #run: |
+          #TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
+          #mkdir "${TMP_KEYSTORE_FILE_PATH}"
+          #echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/myKeystore.jks
+
+    - name: Cat
+      run: ls
         
     - name: Upload keystore
       uses: actions/upload-artifact@v3
       with:
-        path: ${TMP_KEYSTORE_FILE_PATH}/myKeystore.jks # ${{ steps.decode_keystore.outputs.filePath }}
+        path: ${{ steps.decode_keystore.outputs.filePath }}
       
