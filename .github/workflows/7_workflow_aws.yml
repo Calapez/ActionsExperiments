@@ -17,7 +17,7 @@ jobs:
     - name: AWS CLI v2
       uses: imehedi/actions-awscli-v2@latest
       with:
-          args: s3 ls
+          args: codeartifact list-repositories
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
