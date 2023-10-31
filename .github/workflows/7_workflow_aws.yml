@@ -14,12 +14,21 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
 
-    - uses: chrislennon/action-aws-cli@v1.1
-    # All commands after this point have access to the AWS CLI
-    - run: aws s3 ls
+    - name: AWS CLI v2
+      uses: imehedi/actions-awscli-v2@latest
+      with:
+          args: s3 ls
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-central-1"
+
+    #- uses: chrislennon/action-aws-cli@v1.1
+    # All commands after this point have access to the AWS CLI
+    #- run: aws s3 ls
+      #env:
+        #AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
+        #AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
 
     - name: Get aws version
       run: aws --version
