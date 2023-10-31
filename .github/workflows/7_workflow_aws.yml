@@ -1,0 +1,29 @@
+name: Workflow 7 - AWS
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials from Test account
+      env:
+        SECRET_CODEARTIFACT_ACCESS_ID: |
+         ${{ secrets.CODEARTIFACT_ACCESS_ID }}
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::"$SECRET_CODEARTIFACT_ACCESS_ID":role/my-github-actions-role-test
+        aws-region: eu-central-1
+
+    - name: Get aws version
+      run: aws --version
+
+      
