@@ -14,14 +14,12 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
 
-    - name: Configure AWS credentials from Test account
+    - uses: chrislennon/action-aws-cli@v1.1
+    # All commands after this point have access to the AWS CLI
+    - run: aws s3 ls
       env:
-        SECRET_CODEARTIFACT_ACCESS_ID: |
-         ${{ secrets.CODEARTIFACT_ACCESS_ID }}
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::"$SECRET_CODEARTIFACT_ACCESS_ID":role/my-github-actions-role-test
-        aws-region: eu-central-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.CODEARTIFACT_ACCESS_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CODEARTIFACT_ACCESS_KEY }}
 
     - name: Get aws version
       run: aws --version
