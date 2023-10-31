@@ -43,5 +43,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: keystore
-        path: "${TMP_KEYSTORE_FILE_PATH}/your_keystore_file.jks"
+        path: ${TMP_KEYSTORE_FILE_PATH}/your_keystore_file.jks
       
