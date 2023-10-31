@@ -25,9 +25,9 @@ jobs:
 
     - name: Decode Keystore
       id: decode_keystore
-      uses: timheuer/base64-to-file@v1
+      uses: timheuer/base64-to-file@v1.2
       with:
-        fileName: 'keystore/your_signing_keystore.jks'
+        fileName: 'myKeystore.jks'
         encodedString: ${{ secrets.KEYSTORE }}
 
     #- name: Decode Keystore
@@ -37,12 +37,9 @@ jobs:
           #TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
           #mkdir "${TMP_KEYSTORE_FILE_PATH}"
           #echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/your_keystore_file.jks
-
-    - name: Echo keystore
-      run: cat keystore/your_signing_keystore.jks
         
     - name: Upload keystore
       uses: actions/upload-artifact@v3
       with:
-        path: keystore/your_signing_keystore.jks
+        path: ${{ steps.decode_keystore.outputs.filePath }}
       
