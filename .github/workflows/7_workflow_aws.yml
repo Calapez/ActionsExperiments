@@ -17,7 +17,7 @@ jobs:
     - name: AWS CLI v2
       uses: imehedi/actions-awscli-v2@latest
       with:
-          args: codeartifact list-repositories
+          args: codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
