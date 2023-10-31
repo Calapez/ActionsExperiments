@@ -23,17 +23,25 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-central-1"
 
+    #- name: Decode Keystore
+      #id: decode_keystore
+      #uses: timheuer/base64-to-file@v1
+      #with:
+        #fileName: "your_signing_keystore.jks"
+        #encodedString: ${{ secrets.KEYSTORE }}
+
     - name: Decode Keystore
-      id: decode_keystore
-      uses: timheuer/base64-to-file@v1
-      with:
-        fileName: "your_signing_keystore.jks"
-        encodedString: ${{ secrets.KEYSTORE }}
+      env:
+          ENCODED_STRING: ${{ secrets.KEYSTORE }}
+      run: |
+          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
+          mkdir "${TMP_KEYSTORE_FILE_PATH}"
+          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/your_keystore_file.jks
         
     - name: Upload keystore
       if: always()
       uses: actions/upload-artifact@v3
       with:
         name: keystore
-        path: your_signing_keystore.jks
+        path: "${TMP_KEYSTORE_FILE_PATH}/your_keystore_file.jks"
       
