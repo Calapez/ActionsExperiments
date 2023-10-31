@@ -27,12 +27,12 @@ jobs:
       id: decode_keystore
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: 'keystore/your_signing_keystore.jks'
+        fileName: './keystore/your_signing_keystore.jks'
         encodedString: ${{ secrets.KEYSTORE }}
         
     - name: Upload keystore
       uses: actions/upload-artifact@v3
       with:
         name: keystore
-        path: keystore/your_signing_keystore.jks
+        path: "./keystore/your_signing_keystore.jks"
       
