@@ -40,10 +40,10 @@ jobs:
           #echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/myKeystore.jks
 
     - name: Cat
-      run: ls
+      run: ls ./myKeystore
         
     - name: Upload keystore
       uses: actions/upload-artifact@v3
       with:
-        path: ${{ steps.decode_keystore.outputs.filePath }}
+        path: ./myKeystore/myKeystore.jks #${{ steps.decode_keystore.outputs.filePath }}
       
