@@ -26,11 +26,13 @@ jobs:
 
     - name: Set env codeartifact auth token
       env:
-        AUTH_TOKEN_SECRET: ${{ steps.generate_auth_token.outputs }} 
+        AUTH_TOKEN_SECRET: |
+          ${{ steps.generate_auth_token.outputs.stdout }} 
       run: echo "CODEARTIFACT_AUTH_TOKEN=$AUTH_TOKEN_SECRET" >> $GITHUB_ENV
       
     - name: Get env codeartifact auth token
-      run: echo "$CODEARTIFACT_AUTH_TOKEN"
+      run: |
+        echo ${{ steps.generate_auth_token.outputs }} 
 
     - name: Decode Keystore
       id: decode_keystore
