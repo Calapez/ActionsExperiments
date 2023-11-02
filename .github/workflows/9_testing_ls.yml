@@ -80,7 +80,7 @@ jobs:
       uses: timheuer/base64-to-file@v1.2
       with:
         fileName: 'faa_android_debug_keystore.jks'
-        fileDir: './faapriv/'
+        fileDir: './faapriv'
         encodedString: ${{ secrets.DEBUG_KEYSTORE }}
 
     - name: List files 1
