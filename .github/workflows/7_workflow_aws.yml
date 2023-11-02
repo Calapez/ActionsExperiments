@@ -27,7 +27,7 @@ jobs:
     - name: Set env codeartifact auth token
       env:
         AUTH_TOKEN_SECRET: |
-          ${{ steps.generate_auth_token.outputs.stdout }} 
+          ${{ steps.generate_auth_token.outputs.authorizationToken }} 
       run: echo "CODEARTIFACT_AUTH_TOKEN=$AUTH_TOKEN_SECRET" >> $GITHUB_ENV
       
     - name: Get env codeartifact auth token
