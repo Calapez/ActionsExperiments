@@ -64,7 +64,7 @@ jobs:
       run: touch .faapriv/.download_secrets
 
     - name: Test 4
-      run: la -la .faapriv
+      run: ls -la .faapriv
       
     - name: Fill download secrets file
       env:
