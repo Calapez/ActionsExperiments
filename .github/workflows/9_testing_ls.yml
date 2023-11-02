@@ -43,13 +43,13 @@ jobs:
       run: mkdir .faapriv
 
     - name: Test 1
-      run: ls
+      run: ls -la
 
     - name: Create credentials file
       run: touch .faapriv/.credentials
 
     - name: Test 2
-      run: ls .faapriv
+      run: ls -la .faapriv
       
     - name: Fill credentials file
       env:
@@ -64,7 +64,7 @@ jobs:
       run: touch .faapriv/.download_secrets
 
     - name: Test 4
-      run: cat .faapriv
+      run: la -la .faapriv
       
     - name: Fill download secrets file
       env:
@@ -84,10 +84,10 @@ jobs:
         encodedString: ${{ secrets.DEBUG_KEYSTORE }}
 
     - name: List files 1
-      run: ls
+      run: ls -la
 
     - name: List files 2
-      run: ls .faapriv
+      run: ls -la .faapriv
 
     - name: List files 3
       run: cat .faapriv/faa_android_debug_keystore.jks
