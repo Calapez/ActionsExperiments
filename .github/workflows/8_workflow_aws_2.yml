@@ -1,0 +1,57 @@
+name: Workflow 8 - AWS 2.0
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials 2
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: eu-central-1
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Capture and set custom output
+      id: capture_and_set_output
+      run: |
+        # Capture the output
+        auth_token_output=$(aws codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text)
+        
+        # Set it as a workflow output
+        echo "::set-output name=auth_token_output::$auth_token_output"
+      
+    - name: Display auth_token_output
+      run: |
+        echo "Auth Token Output: ${{ steps.capture_and_set_output.outputs.auth_token_output }}"
+        
+    - name: Set env codeartifact auth token
+      env:
+        AUTH_TOKEN_SECRET: |
+          ${{ steps.capture_and_set_output.outputs.auth_token_output }}} 
+      run: echo "CODEARTIFACT_AUTH_TOKEN=$AUTH_TOKEN_SECRET" >> $GITHUB_ENV
+
+    - name: Decode Keystore
+      id: decode_keystore
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'myKeystore.jks'
+        fileDir: './myKeystore/'
+        encodedString: ${{ secrets.KEYSTORE }}
+
+    - name: Cat
+      run: ls ./myKeystore
+        
+    - name: Upload keystore
+      uses: actions/upload-artifact@v3
+      with:
+        path: ./myKeystore/myKeystore.jks #${{ steps.decode_keystore.outputs.filePath }}
