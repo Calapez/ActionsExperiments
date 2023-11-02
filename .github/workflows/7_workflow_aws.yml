@@ -34,6 +34,10 @@ jobs:
       run: |
         echo ${{ steps.generate_auth_token.outputs.authorizationToken }} 
 
+    - name: mytest
+      id: set_output_variable
+      run: echo "::set-output name=auth_token_output::${{ toJson(steps.generate_auth_token.outputs) }}"
+
     - name: Decode Keystore
       id: decode_keystore
       uses: timheuer/base64-to-file@v1.2
