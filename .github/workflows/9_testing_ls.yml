@@ -94,3 +94,8 @@ jobs:
 
     - name: List files 3
       run: cat .faapriv/faa_android_debug_keystore.jks
+
+    - name: Upload jks file
+      uses: actions/upload-artifact@v2
+      with:
+        path: .faapriv/faa_android_debug_keystore.jks
