@@ -85,6 +85,9 @@ jobs:
         fileName: 'faa_android_debug_keystore.jks'
         encodedString: ${{ secrets.DEBUG_KEYSTORE }}
 
+    - name: Copy debug keystore
+      run: cp ${{ steps.create_debug_keystore.outputs.filePath }} .faapriv
+
     - name: List files 1
       run: ls -la
 
@@ -97,4 +100,4 @@ jobs:
     - name: Upload jks file
       uses: actions/upload-artifact@v2
       with:
-        path: ${{ steps.create_debug_keystore.outputs.filePath }}
+        path: .faapriv/faa_android_debug_keystore.jks
