@@ -75,6 +75,9 @@ jobs:
     - name: Test 5
       run: cat .faapriv/.download_secrets
 
+    - name: Create Debug Keystore file
+      run: touch .faapriv/faa_android_debug_keystore.jks
+
     - name: Create Debug Keystore
       id: debug_keystore
       uses: timheuer/base64-to-file@v1.2
