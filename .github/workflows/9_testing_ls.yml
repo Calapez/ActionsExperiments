@@ -1,0 +1,93 @@
+name: Workflow 9 - Testing ls
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "main" ]
+
+# Required permissions for Unit Test reporting (dorny/test-reporter)
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
+# The concurrency key ensures that only a single workflow in the same concurrency group will run at the same time. 
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # The name of the job
+  build_and_run_unit_tests:
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: checkout
+      uses: actions/checkout@v3
+      
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Make .faapriv directory
+      run: mkdir .faapriv
+
+    - name: Test 1
+      run: touch ls
+
+    - name: Create credentials file
+      run: touch .faapriv/.credentials
+
+    - name: Test 2
+      run: ls .faapriv
+      
+    - name: Fill credentials file
+      env:
+        CREDENTIALS_SECRET: |
+         ${{ secrets.CREDENTIALS }}
+      run: echo "$CREDENTIALS_SECRET" > .faapriv/.credentials
+
+    - name: Test 3
+      run: cat .faapriv/.credentials
+
+    - name: Create download secrets file
+      run: touch .faapriv/.download_secrets
+
+    - name: Test 4
+      run: cat .faapriv
+      
+    - name: Fill download secrets file
+      env:
+        DOWNLOAD_SECRETS_SECRET: |
+         ${{ secrets.DOWNLOAD_SECRETS }}
+      run: echo "$DOWNLOAD_SECRETS_SECRET" > .faapriv/.download_secrets
+
+    - name: Test 5
+      run: cat .faapriv/.download_secrets
+
+    - name: Create Debug Keystore
+      id: debug_keystore
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'faa_android_debug_keystore.jks'
+        fileDir: './faapriv/'
+        encodedString: ${{ secrets.DEBUG_KEYSTORE }}
+
+    - name: List files 1
+      run: ls
+
+    - name: List files 2
+      run: ls .faapriv
+
+    - name: List files 3
+      run: cat .faapriv/faa_android_debug_keystore.jks
