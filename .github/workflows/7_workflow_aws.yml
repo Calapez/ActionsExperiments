@@ -55,7 +55,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Maybe
-      run: aws --version
+      run: aws codeartifact get-authorization-token --domain test-modules --query authorizationToken --output text
 
     - name: Decode Keystore
       id: decode_keystore
