@@ -32,7 +32,7 @@ jobs:
       
     - name: Get env codeartifact auth token
       run: |
-        echo ${{ steps.generate_auth_token.outputs }} 
+        echo ${{ steps.generate_auth_token.outputs.authorizationToken }} 
 
     - name: Decode Keystore
       id: decode_keystore
