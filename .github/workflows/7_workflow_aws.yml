@@ -47,6 +47,13 @@ jobs:
       #run: |
         #echo "Auth Token Output: ${{ steps.capture_and_set_output.outputs.auth_token_output }}"
 
+    - name: Configure AWS Credentials 2
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: eu-central-1
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     - name: Maybe
       run: aws --version
 
