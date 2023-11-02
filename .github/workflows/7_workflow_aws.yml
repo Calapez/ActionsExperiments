@@ -14,14 +14,24 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
 
-    #- name: AWS CLI v2
-      #uses: imehedi/actions-awscli-v2@latest
-     # with:
-          #args: codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text
-      #env:
-          #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          #AWS_DEFAULT_REGION: "eu-central-1"
+    - name: AWS CLI v2
+      id: generate_auth_token
+      uses: imehedi/actions-awscli-v2@latest
+      with:
+          args: codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text
+      env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-central-1"
+
+    - name: Set env codeartifact auth token
+      env:
+        AUTH_TOKEN_SECRET: |
+         ${{ steps.generate_auth_token.outputs.stdout }} 
+      run: echo "CODEARTIFACT_AUTH_TOKEN=$AUTH_TOKEN_SECRET" >> $GITHUB_ENV
+      
+    - name: Get env codeartifact auth token
+      run: echo "$CODEARTIFACT_AUTH_TOKEN"
 
     - name: Decode Keystore
       id: decode_keystore
@@ -30,14 +40,6 @@ jobs:
         fileName: 'myKeystore.jks'
         fileDir: './myKeystore/'
         encodedString: ${{ secrets.KEYSTORE }}
-
-    #- name: Decode Keystore
-      #env:
-          #ENCODED_STRING: ${{ secrets.KEYSTORE }}
-      #run: |
-          #TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
-          #mkdir "${TMP_KEYSTORE_FILE_PATH}"
-          #echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/myKeystore.jks
 
     - name: Cat
       run: ls ./myKeystore
