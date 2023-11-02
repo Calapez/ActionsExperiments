@@ -43,7 +43,7 @@ jobs:
       run: mkdir .faapriv
 
     - name: Test 1
-      run: touch ls
+      run: ls
 
     - name: Create credentials file
       run: touch .faapriv/.credentials
