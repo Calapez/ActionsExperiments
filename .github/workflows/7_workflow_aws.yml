@@ -30,13 +30,22 @@ jobs:
           ${{ steps.generate_auth_token.outputs.authorizationToken }} 
       run: echo "CODEARTIFACT_AUTH_TOKEN=$AUTH_TOKEN_SECRET" >> $GITHUB_ENV
       
-    - name: Get env codeartifact auth token
+    - name: Get env codeartifact auth token (doesnt work)
       run: |
         echo ${{ steps.generate_auth_token.outputs.authorizationToken }} 
 
-    - name: mytest
-      id: set_output_variable
-      run: echo "::set-output name=auth_token_output::${{ toJson(steps.generate_auth_token.outputs) }}"
+    - name: Capture and set custom output (?)
+      id: capture_and_set_output
+      run: |
+        # Capture the output
+        auth_token_output=$(aws codeartifact get-authorization-token --domain test-modules --query authorizationToken --output text)
+        
+        # Set it as a workflow output
+        echo "::set-output name=auth_token_output::$auth_token_output"
+        
+    - name: Display auth_token_output (?)
+      run: |
+        echo "Auth Token Output: ${{ steps.capture_and_set_output.outputs.auth_token_output }}"
 
     - name: Decode Keystore
       id: decode_keystore
