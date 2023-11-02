@@ -48,7 +48,7 @@ jobs:
         #echo "Auth Token Output: ${{ steps.capture_and_set_output.outputs.auth_token_output }}"
 
     - name: Maybe
-      run: aws codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text
+      run: aws --version
 
     - name: Decode Keystore
       id: decode_keystore
