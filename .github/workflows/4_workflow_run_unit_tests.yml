@@ -27,6 +27,30 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    - name: Make .faapriv directory
+      run: mkdir .faapriv
+
+    - name: Test 1
+      run: ls -la
+
+    - name: Create credentials file
+      run: touch .faapriv/.credentials
+      
+    - name: Fill credentials file
+      env:
+        CREDENTIALS_SECRET: |
+         ${{ secrets.CREDENTIALS }}
+      run: echo "$CREDENTIALS_SECRET" > .faapriv/.credentials
+
+    - name: Create download secrets file
+      run: touch .faapriv/.download_secrets
+      
+    - name: Fill download secrets file
+      env:
+        DOWNLOAD_SECRETS_SECRET: |
+         ${{ secrets.DOWNLOAD_SECRETS }}
+      run: echo "$DOWNLOAD_SECRETS_SECRET" > .faapriv/.download_secrets
+
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
