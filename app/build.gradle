@@ -23,10 +23,10 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField "String", "GUEST_EMAIL", credentialsProps['guest_email']
-        buildConfigField "String", "GUEST_PW", credentialsProps['guest_pw']
-        buildConfigField "String", "USERNAME", System.env.CODEARTIFACT_USERNAME
-        buildConfigField "String", "AUTH_TOKEN", System.env.CODEARTIFACT_AUTH_TOKEN
+        //buildConfigField "String", "GUEST_EMAIL", credentialsProps['guest_email']
+        //buildConfigField "String", "GUEST_PW", credentialsProps['guest_pw']
+        //buildConfigField "String", "USERNAME", System.env.CODEARTIFACT_USERNAME
+        //buildConfigField "String", "AUTH_TOKEN", System.env.CODEARTIFACT_AUTH_TOKEN
     }
 
     buildTypes {

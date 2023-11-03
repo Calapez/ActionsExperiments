@@ -17,10 +17,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d("MainActivity", BuildConfig.GUEST_EMAIL)
-        Log.d("MainActivity", BuildConfig.GUEST_PW)
-        Log.d("MainActivity", BuildConfig.USERNAME)
-        Log.d("MainActivity", BuildConfig.AUTH_TOKEN)
+        //Log.d("MainActivity", BuildConfig.GUEST_EMAIL)
+        //Log.d("MainActivity", BuildConfig.GUEST_PW)
+        //Log.d("MainActivity", BuildConfig.USERNAME)
+        //Log.d("MainActivity", BuildConfig.AUTH_TOKEN)
 
         setContent {
             ActionsExperimentsTheme {
