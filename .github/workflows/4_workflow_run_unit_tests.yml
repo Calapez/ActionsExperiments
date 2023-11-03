@@ -59,12 +59,12 @@ jobs:
       with:
         arguments: --stacktrace :app:testDebugUnitTest
 
-    - name: Upload build reports
-      if: always() # run this step even if previous step failed
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-reports
-        path: app/build/reports
+    #- name: Upload build reports
+      #if: always() # run this step even if previous step failed
+      #uses: actions/upload-artifact@v2
+      #with:
+        #name: build-reports
+        #path: app/build/reports
 
     - name: Test Reports
       uses: dorny/test-reporter@v1
