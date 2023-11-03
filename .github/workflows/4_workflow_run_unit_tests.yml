@@ -28,28 +28,28 @@ jobs:
         cache: gradle
 
     - name: Make .faapriv directory
-      run: mkdir .faapriv
+      run: mkdir .priv
 
     - name: Test 1
       run: ls -la
 
     - name: Create credentials file
-      run: touch .faapriv/.credentials
+      run: touch .priv/.credentials
       
     - name: Fill credentials file
       env:
         CREDENTIALS_SECRET: |
          ${{ secrets.CREDENTIALS }}
-      run: echo "$CREDENTIALS_SECRET" > .faapriv/.credentials
+      run: echo "$CREDENTIALS_SECRET" > .priv/.credentials
 
     - name: Create download secrets file
-      run: touch .faapriv/.download_secrets
+      run: touch .priv/.download_secrets
       
     - name: Fill download secrets file
       env:
         DOWNLOAD_SECRETS_SECRET: |
          ${{ secrets.DOWNLOAD_SECRETS }}
-      run: echo "$DOWNLOAD_SECRETS_SECRET" > .faapriv/.download_secrets
+      run: echo "$DOWNLOAD_SECRETS_SECRET" > .priv/.download_secrets
 
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
