@@ -55,7 +55,7 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Run Unit Tests and generate APK
-      run: ./gradlew :app:testProdDebug :app:assembleProdDebug # only using prodDebug variant for now
+      run: ./gradlew :app:testDebug :app:assembleDebug # only using prodDebug variant for now
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
