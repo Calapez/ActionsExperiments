@@ -23,7 +23,7 @@ class ExampleUnitTest {
     // some comment
     @Test
     fun subtraction_isCorrect() {
-        assertEquals(5, 10 - 5)
+        assertEquals(5, 10 - 3)
     }
 
 }
