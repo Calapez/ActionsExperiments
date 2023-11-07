@@ -28,7 +28,7 @@ jobs:
         auth_token_output=$(aws codeartifact get-authorization-token --domain faa-modules --query authorizationToken --output text)
         
         # Set it as a workflow output
-        echo "::set-output name=auth_token_output::$auth_token_output"
+        echo "auth_token_output=$auth_token_output" >> $GITHUB_OUTPUT
       
     - name: Display auth_token_output
       run: |
